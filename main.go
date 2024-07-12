@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -24,6 +25,11 @@ func main() {
 	router := mux.NewRouter()
 	routes.InitializeRoutes(router)
 
-	fmt.Println("Server is running on port 8000")
-	log.Fatal(http.ListenAndServe(":8000", router))
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // default port if not specified
+    }
+	fmt.Printf("Server is running on port %s", port)
+	log.Fatalf("Failed to start server: %v", http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 }

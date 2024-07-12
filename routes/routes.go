@@ -3,9 +3,13 @@ package routes
 import (
 	"github.com/gorilla/mux"
 	"github.com/sahilchauhan0603/backend/controllers"
+	"github.com/sahilchauhan0603/backend/middleware"
 )
 
 func InitializeRoutes(router *mux.Router) {
+
+	// Apply middleware to all routes
+	router.Use(middleware.JWTVerify)
 
 	// routes for Uploader Table
 	router.HandleFunc("/upload", controllers.CreateUploader).Methods("POST")
@@ -27,4 +31,8 @@ func InitializeRoutes(router *mux.Router) {
 	router.HandleFunc("/admin/{id}", controllers.GetAdminID).Methods("GET")
 	router.HandleFunc("/admin/{id}", controllers.UpdateAdmin).Methods("PUT")
 	router.HandleFunc("/admin/{id}", controllers.DeleteAdmin).Methods("DELETE")
+
+	// Authentication routes
+	router.HandleFunc("/login", controllers.HandleMicrosoftLogin).Methods("GET")
+	router.HandleFunc("/callback", controllers.HandleMicrosoftCallback).Methods("GET")
 }
