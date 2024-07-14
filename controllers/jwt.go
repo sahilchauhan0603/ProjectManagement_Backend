@@ -10,12 +10,14 @@ import (
 	"github.com/sahilchauhan0603/backend/utils"
 )
 
-// Validate token and generate a new JWT
+// ValidateTokenAndGenerateJWT validates the provided ID token and generates a new JWT.
 func ValidateTokenAndGenerateJWT(idToken string) (string, error) {
-
 	// Parsing the token
-	token, _ := jwt.Parse(idToken, nil)
-	claims := token.Claims.(jwt.MapClaims)	
+	token, _, err := new(jwt.Parser).ParseUnverified(idToken, jwt.MapClaims{})
+	if err != nil {
+		return "", fmt.Errorf("invalid token: %v", err)
+	}
+	claims := token.Claims.(jwt.MapClaims)
 	kid := token.Header["kid"].(string)
 	issuer := claims["iss"].(string)
 	audience := claims["aud"].(string)
@@ -23,13 +25,13 @@ func ValidateTokenAndGenerateJWT(idToken string) (string, error) {
 	// Fetching the JWKS (JSON Web Key Set)
 	jwks, err := utils.FetchJWKS("https://login.microsoftonline.com/common/discovery/v2.0/keys")
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to fetch JWKS: %v", err)
 	}
 
 	// Find the key
 	key, err := jwks.FindKey(kid)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to find key: %v", err)
 	}
 
 	// Validate the token
@@ -56,7 +58,7 @@ func ValidateTokenAndGenerateJWT(idToken string) (string, error) {
 	jwtKey := []byte(os.Getenv("JWT_KEY"))
 	jwtString, err := newToken.SignedString(jwtKey)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to generate JWT: %v", err)
 	}
 
 	return jwtString, nil

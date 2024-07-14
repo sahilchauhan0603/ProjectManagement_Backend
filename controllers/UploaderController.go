@@ -11,19 +11,22 @@ import (
 	models "github.com/sahilchauhan0603/backend/models"
 )
 
+// CreateUploader creates a new uploader
+// @Summary Create a new uploader
+// @Description Create a new uploader
+// @Tags uploader
+// @Accept json
+// @Produce json
+// @Param uploader body models.Uploader true "Uploader"
+// @Success 201 {object} models.Uploader
+// @Failure 400 {string} string "Bad Request"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /uploader [post]
 func CreateUploader(w http.ResponseWriter, r *http.Request) {
 	var uploader models.Uploader
 	if err := json.NewDecoder(r.Body).Decode(&uploader); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
-	}
-
-	// Check if table exists or create it if it doesn't
-	if !database.DB.Migrator().HasTable(&models.Uploader{}) {
-		if err := database.DB.AutoMigrate(&models.Uploader{}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
 	}
 
 	if result := database.DB.Create(&uploader); result.Error != nil {
@@ -35,37 +38,36 @@ func CreateUploader(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(uploader)
 }
 
+// GetUploader retrieves all uploaders
+// @Summary Get all uploaders
+// @Description Get all uploaders
+// @Tags uploader
+// @Produce json
+// @Success 200 {array} models.Uploader
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /uploader [get]
 func GetUploader(w http.ResponseWriter, r *http.Request) {
-
-	// Check if table exists or create it if it doesn't
-	if !database.DB.Migrator().HasTable(&models.Uploader{}) {
-		if err := database.DB.AutoMigrate(&models.Uploader{}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	}
-
-	var uploader []models.Uploader
-	if result := database.DB.Find(&uploader); result.Error != nil {
+	var uploaders []models.Uploader
+	if result := database.DB.Find(&uploaders); result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(uploader)
+	json.NewEncoder(w).Encode(uploaders)
 }
 
-
+// GetUploaderID retrieves an uploader by ID
+// @Summary Get uploader by ID
+// @Description Get uploader by ID
+// @Tags uploader
+// @Produce json
+// @Param id path int true "Uploader ID"
+// @Success 200 {object} models.Uploader
+// @Failure 400 {string} string "Invalid ID"
+// @Failure 404 {string} string "Not Found"
+// @Router /uploader/{id} [get]
 func GetUploaderID(w http.ResponseWriter, r *http.Request) {
-
-	// Check if table exists or create it if it doesn't
-	if !database.DB.Migrator().HasTable(&models.Uploader{}) {
-		if err := database.DB.AutoMigrate(&models.Uploader{}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	}
-
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
@@ -83,30 +85,51 @@ func GetUploaderID(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(uploader)
 }
 
-
+// UpdateUploader updates an uploader by ID
+// @Summary Update uploader by ID
+// @Description Update uploader by ID
+// @Tags uploader
+// @Accept json
+// @Produce json
+// @Param id path int true "Uploader ID"
+// @Param uploader body models.Uploader true "Uploader"
+// @Success 200 {object} models.Uploader
+// @Failure 400 {string} string "Invalid ID or Bad Request"
+// @Failure 404 {string} string "Not Found"
+// @Router /uploader/{id} [put]
 func UpdateUploader(w http.ResponseWriter, r *http.Request) {
-
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		return
 	}
+
 	var uploader models.Uploader
 	if result := database.DB.First(&uploader, id); result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusNotFound)
 		return
 	}
+
 	if err := json.NewDecoder(r.Body).Decode(&uploader); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
 	database.DB.Save(&uploader)
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(uploader)
 }
 
-
+// DeleteUploader deletes an uploader by ID
+// @Summary Delete uploader by ID
+// @Description Delete uploader by ID
+// @Tags uploader
+// @Param id path int true "Uploader ID"
+// @Success 204 {string} string "No Content"
+// @Failure 400 {string} string "Invalid ID"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /uploader/{id} [delete]
 func DeleteUploader(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -114,9 +137,11 @@ func DeleteUploader(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		return
 	}
+
 	if result := database.DB.Delete(&models.Uploader{}, id); result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 		return
 	}
+
 	w.WriteHeader(http.StatusNoContent)
 }

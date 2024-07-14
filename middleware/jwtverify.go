@@ -11,6 +11,17 @@ import (
 )
 
 // JWTVerify is the middleware to verify JWT tokens
+//
+// This middleware checks for a valid JWT token in the Authorization header of the request.
+// If the token is missing, invalid, or has an unexpected signing method, the request is
+// rejected with a 401 Unauthorized status. If the token is valid, the request proceeds
+// to the next handler with the user information added to the context.
+//
+// Parameters:
+//   - next: The next handler to be executed if the token is valid.
+//
+// Returns:
+//   - An http.Handler that performs the JWT verification.
 func JWTVerify(next http.Handler) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

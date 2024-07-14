@@ -1,0 +1,535 @@
+definitions:
+  models.Admin:
+    description: Admin model
+    properties:
+      admin_id:
+        description: |-
+          ID of the admin
+          required: true
+        type: integer
+      admin_name:
+        description: |-
+          Name of the Admin
+          required: true
+        type: string
+      createdAt:
+        description: CreatedAt timestamp
+        type: string
+      password:
+        description: |-
+          Password of the Admin
+          required: true
+        type: string
+      project:
+        description: Projects associated with the Admin
+        items:
+          $ref: '#/definitions/models.Project'
+        type: array
+      uploader:
+        description: Uploader associated with the Admin
+        items:
+          $ref: '#/definitions/models.Uploader'
+        type: array
+      username:
+        description: |-
+          UerName of the Admin
+          required: true
+        type: string
+    type: object
+  models.Project:
+    description: Project model
+    properties:
+      admin_id:
+        description: |-
+          AdminID is the foreign key to Admin
+          required: true
+        type: integer
+      approach:
+        description: |-
+          Approach used in the project
+          required: true
+        type: string
+      created_at:
+        description: CreatedAt timestamp
+        type: string
+      description:
+        description: |-
+          Description of the project
+          required: true
+        type: string
+      project_id:
+        description: |-
+          ProjectID is the primary key
+          required: true
+        type: integer
+      proof:
+        description: |-
+          Proof related to the project
+          required: true
+        type: string
+      supervisor:
+        description: |-
+          Supervisor of the project
+          required: true
+        type: string
+      title:
+        description: |-
+          Title of the project
+          required: true
+        type: string
+      topic:
+        description: |-
+          Topic of the project
+          required: true
+        type: string
+      uploaders:
+        description: Uploaders associated with the project
+        items:
+          $ref: '#/definitions/models.Uploader'
+        type: array
+    type: object
+  models.Uploader:
+    description: Uploader model
+    properties:
+      admin_id:
+        description: |-
+          AdminID is the foreign key to Admin
+          required: true
+        type: integer
+      college_name:
+        description: |-
+          CollegeName of the uploader
+          required: true
+        type: string
+      created_at:
+        description: CreatedAt timestamp
+        type: string
+      email:
+        description: |-
+          Email of the uploader
+          required: true
+        type: string
+      enrollment_no:
+        description: |-
+          EnrollmentNo is the primary key
+          required: true
+        type: integer
+      first_name:
+        description: |-
+          FirstName of the uploader
+          required: true
+        type: string
+      last_name:
+        description: |-
+          LastName of the uploader
+          required: true
+        type: string
+      project_id:
+        description: |-
+          ProjectID is the foreign key to Project
+          required: true
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /admin:
+    get:
+      description: Get all admins
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Admin'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get all admins
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      description: Create a new admin
+      parameters:
+      - description: Admin
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.Admin'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new admin
+      tags:
+      - admin
+  /admin/{id}:
+    delete:
+      description: Delete admin by ID
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete admin by ID
+      tags:
+      - admin
+    get:
+      description: Get admin by ID
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get admin by ID
+      tags:
+      - admin
+    put:
+      consumes:
+      - application/json
+      description: Update admin by ID
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Admin
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.Admin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Invalid ID or Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Update admin by ID
+      tags:
+      - admin
+  /project:
+    get:
+      description: Get all projects
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Project'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get all projects
+      tags:
+      - project
+    post:
+      consumes:
+      - application/json
+      description: Create a new project
+      parameters:
+      - description: Project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/models.Project'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Project'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new project
+      tags:
+      - project
+  /project/{id}:
+    delete:
+      description: Delete project by ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete project by ID
+      tags:
+      - project
+    get:
+      description: Get project by ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Project'
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get project by ID
+      tags:
+      - project
+    put:
+      consumes:
+      - application/json
+      description: Update project by ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/models.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Project'
+        "400":
+          description: Invalid ID or Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Update project by ID
+      tags:
+      - project
+  /uploader:
+    get:
+      description: Get all uploaders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Uploader'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get all uploaders
+      tags:
+      - uploader
+    post:
+      consumes:
+      - application/json
+      description: Create a new uploader
+      parameters:
+      - description: Uploader
+        in: body
+        name: uploader
+        required: true
+        schema:
+          $ref: '#/definitions/models.Uploader'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Uploader'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new uploader
+      tags:
+      - uploader
+  /uploader/{id}:
+    delete:
+      description: Delete uploader by ID
+      parameters:
+      - description: Uploader ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete uploader by ID
+      tags:
+      - uploader
+    get:
+      description: Get uploader by ID
+      parameters:
+      - description: Uploader ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Uploader'
+        "400":
+          description: Invalid ID
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get uploader by ID
+      tags:
+      - uploader
+    put:
+      consumes:
+      - application/json
+      description: Update uploader by ID
+      parameters:
+      - description: Uploader ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Uploader
+        in: body
+        name: uploader
+        required: true
+        schema:
+          $ref: '#/definitions/models.Uploader'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Uploader'
+        "400":
+          description: Invalid ID or Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Update uploader by ID
+      tags:
+      - uploader
+swagger: "2.0"

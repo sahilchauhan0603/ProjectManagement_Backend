@@ -12,8 +12,14 @@ import (
 )
 
 // HandleMicrosoftLogin redirects to Microsoft OAuth2 login page
+// swagger:route GET /login authentication HandleMicrosoftLogin
+//
+// Redirect to Microsoft OAuth2 login page.
+//
+// Responses:
+//
+//	302: emptyResponse
 func HandleMicrosoftLogin(w http.ResponseWriter, r *http.Request) {
-
 	clientID := os.Getenv("CLIENT_ID")
 	redirectURL := os.Getenv("REDIRECT_URL")
 	tenantID := os.Getenv("TENANT_ID")
@@ -33,9 +39,15 @@ func HandleMicrosoftLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 // HandleMicrosoftCallback handles the OAuth2 callback from Microsoft
+// swagger:route GET /callback authentication HandleMicrosoftCallback
+//
+// Handle the OAuth2 callback from Microsoft and generate JWT.
+//
+// Responses:
+//
+//	200: jwtTokenResponse
+//	500: errorResponse
 func HandleMicrosoftCallback(w http.ResponseWriter, r *http.Request) {
-
-	// ctx := context.Background()
 	code := r.URL.Query().Get("code")
 
 	// Exchange the code for a token
@@ -58,12 +70,12 @@ func HandleMicrosoftCallback(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to validate token", http.StatusInternalServerError)
 		return
 	}
+
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, "JWT Token: %s", jwtToken)
+	fmt.Fprintf(w, `{"jwtToken": "%s"}`, jwtToken)
 }
 
 func exchangeCodeForToken(authCode string) (map[string]interface{}, error) {
-	
 	// Define the token endpoint
 	tokenURL := fmt.Sprintf("https://login.microsoftonline.com/%s/oauth2/v2.0/token", os.Getenv("TENANT_ID"))
 
