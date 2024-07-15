@@ -27,7 +27,7 @@ func InitializeRoutes(router *mux.Router) {
 	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 	// Uploader routes
-	uploaderRouter := router.PathPrefix("/uploader").Subrouter()
+	uploaderRouter := router.PathPrefix("/upload").Subrouter()
 	uploaderRouter.Use(middleware.JWTVerify)
 
 	// @Summary Create a new uploader
@@ -39,7 +39,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 201 {object} models.Uploader
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /uploader/upload [post]
-	uploaderRouter.HandleFunc("/upload", controllers.CreateUploader).Methods("POST")
+	uploaderRouter.HandleFunc("", controllers.CreateUploader).Methods("POST")
 
 	// @Summary Get all uploaders
 	// @Description Retrieve all uploaders
@@ -48,7 +48,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {array} models.Uploader
 	// @Failure 500 {string} string "Internal Server Error"
 	// @Router /uploader/upload [get]
-	uploaderRouter.HandleFunc("/upload", controllers.GetUploader).Methods("GET")
+	uploaderRouter.HandleFunc("", controllers.GetUploader).Methods("GET")
 
 	// @Summary Get uploader by ID
 	// @Description Retrieve uploader by ID
@@ -58,7 +58,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {object} models.Uploader
 	// @Failure 404 {string} string "Uploader not found"
 	// @Router /uploader/upload/{id} [get]
-	uploaderRouter.HandleFunc("/upload/{id}", controllers.GetUploaderID).Methods("GET")
+	uploaderRouter.HandleFunc("/{id}", controllers.GetUploaderID).Methods("GET")
 
 	// @Summary Update uploader
 	// @Description Update uploader by ID
@@ -71,7 +71,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Failure 404 {string} string "Uploader not found"
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /uploader/{id} [put]
-	uploaderRouter.HandleFunc("/uploader/{id}", controllers.UpdateUploader).Methods("PUT")
+	uploaderRouter.HandleFunc("/{id}", controllers.UpdateUploader).Methods("PUT")
 
 	// @Summary Delete uploader
 	// @Description Delete uploader by ID
@@ -80,7 +80,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 204 {string} string "No Content"
 	// @Failure 404 {string} string "Uploader not found"
 	// @Router /uploader/upload/{id} [delete]
-	uploaderRouter.HandleFunc("/upload/{id}", controllers.DeleteUploader).Methods("DELETE")
+	uploaderRouter.HandleFunc("/{id}", controllers.DeleteUploader).Methods("DELETE")
 
 	// Project routes
 	projectRouter := router.PathPrefix("/project").Subrouter()
@@ -95,7 +95,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 201 {object} models.Project
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /project [post]
-	projectRouter.HandleFunc("/project", controllers.CreateProject).Methods("POST")
+	projectRouter.HandleFunc("", controllers.CreateProject).Methods("POST")
 
 	// @Summary Get all projects
 	// @Description Retrieve all projects
@@ -104,7 +104,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {array} models.Project
 	// @Failure 500 {string} string "Internal Server Error"
 	// @Router /project [get]
-	projectRouter.HandleFunc("/project", controllers.GetProject).Methods("GET")
+	projectRouter.HandleFunc("", controllers.GetProject).Methods("GET")
 
 	// @Summary Get project by ID
 	// @Description Retrieve project by ID
@@ -114,7 +114,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {object} models.Project
 	// @Failure 404 {string} string "Project not found"
 	// @Router /project/{id} [get]
-	projectRouter.HandleFunc("/project/{id}", controllers.GetProjectID).Methods("GET")
+	projectRouter.HandleFunc("/{id}", controllers.GetProjectID).Methods("GET")
 
 	// @Summary Update project
 	// @Description Update project by ID
@@ -127,7 +127,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Failure 404 {string} string "Project not found"
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /project/{id} [put]
-	projectRouter.HandleFunc("/project/{id}", controllers.UpdateProject).Methods("PUT")
+	projectRouter.HandleFunc("/{id}", controllers.UpdateProject).Methods("PUT")
 
 	// @Summary Delete project
 	// @Description Delete project by ID
@@ -136,7 +136,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 204 {string} string "No Content"
 	// @Failure 404 {string} string "Project not found"
 	// @Router /project/{id} [delete]
-	projectRouter.HandleFunc("/project/{id}", controllers.DeleteProject).Methods("DELETE")
+	projectRouter.HandleFunc("/{id}", controllers.DeleteProject).Methods("DELETE")
 
 	// Admin routes
 	adminRouter := router.PathPrefix("/admin").Subrouter()
@@ -151,7 +151,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 201 {object} models.Admin
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /admin [post]
-	adminRouter.HandleFunc("/admin", controllers.CreateAdmin).Methods("POST")
+	adminRouter.HandleFunc("", controllers.CreateAdmin).Methods("POST")
 
 	// @Summary Get all admins
 	// @Description Retrieve all admins
@@ -160,7 +160,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {array} models.Admin
 	// @Failure 500 {string} string "Internal Server Error"
 	// @Router /admin [get]
-	adminRouter.HandleFunc("/admin", controllers.GetAdmin).Methods("GET")
+	adminRouter.HandleFunc("", controllers.GetAdmin).Methods("GET")
 
 	// @Summary Get admin by ID
 	// @Description Retrieve admin by ID
@@ -170,7 +170,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 200 {object} models.Admin
 	// @Failure 404 {string} string "Admin not found"
 	// @Router /admin/{id} [get]
-	adminRouter.HandleFunc("/admin/{id}", controllers.GetAdminID).Methods("GET")
+	adminRouter.HandleFunc("/{id}", controllers.GetAdminID).Methods("GET")
 
 	// @Summary Update admin
 	// @Description Update admin by ID
@@ -183,7 +183,7 @@ func InitializeRoutes(router *mux.Router) {
 	// @Failure 404 {string} string "Admin not found"
 	// @Failure 400 {string} string "Bad Request"
 	// @Router /admin/{id} [put]
-	adminRouter.HandleFunc("/admin/{id}", controllers.UpdateAdmin).Methods("PUT")
+	adminRouter.HandleFunc("/{id}", controllers.UpdateAdmin).Methods("PUT")
 
 	// @Summary Delete admin
 	// @Description Delete admin by ID
@@ -192,18 +192,6 @@ func InitializeRoutes(router *mux.Router) {
 	// @Success 204 {string} string "No Content"
 	// @Failure 404 {string} string "Admin not found"
 	// @Router /admin/{id} [delete]
-	adminRouter.HandleFunc("/admin/{id}", controllers.DeleteAdmin).Methods("DELETE")
+	adminRouter.HandleFunc("/{id}", controllers.DeleteAdmin).Methods("DELETE")
 
-	// Authentication routes for admin
-	// @Summary Microsoft login
-	// @Description Initiate Microsoft login
-	// @Tags Authentication
-	// @Router /admin/login [get]
-	adminRouter.HandleFunc("/login", controllers.HandleMicrosoftLogin).Methods("GET")
-
-	// @Summary Microsoft login callback
-	// @Description Handle Microsoft login callback
-	// @Tags Authentication
-	// @Router /admin/callback [get]
-	adminRouter.HandleFunc("/callback", controllers.HandleMicrosoftCallback).Methods("GET")
 }
