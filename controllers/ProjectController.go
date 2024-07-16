@@ -20,7 +20,7 @@ import (
 // @Success 201 {object} models.Project
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /project [post]
+// @Router /api/v1/project [post]
 func CreateProject(w http.ResponseWriter, r *http.Request) {
 	var project models.Project
 	if err := json.NewDecoder(r.Body).Decode(&project); err != nil {
@@ -52,7 +52,7 @@ func CreateProject(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Success 200 {array} models.Project
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /project [get]
+// @Router /api/v1/project [get]
 func GetProject(w http.ResponseWriter, r *http.Request) {
 	var project []models.Project
 	if result := database.DB.Find(&project); result.Error != nil {
@@ -73,7 +73,7 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Project
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 404 {string} string "Not Found"
-// @Router /project/{id} [get]
+// @Router /api/v1/project/{id} [get]
 func GetProjectID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -103,7 +103,7 @@ func GetProjectID(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Project
 // @Failure 400 {string} string "Invalid ID or Bad Request"
 // @Failure 404 {string} string "Not Found"
-// @Router /project/{id} [put]
+// @Router /api/v1/project/{id} [put]
 func UpdateProject(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -136,7 +136,7 @@ func UpdateProject(w http.ResponseWriter, r *http.Request) {
 // @Success 204 {string} string "No Content"
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /project/{id} [delete]
+// @Router /api/v1/project/{id} [delete]
 func DeleteProject(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])

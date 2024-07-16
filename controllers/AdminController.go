@@ -20,7 +20,7 @@ import (
 // @Success 201 {object} models.Admin
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /admin [post]
+// @Router /api/v1/admin [post]
 func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 	var admin models.Admin
 	if err := json.NewDecoder(r.Body).Decode(&admin); err != nil {
@@ -52,7 +52,7 @@ func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Success 200 {array} models.Admin
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /admin [get]
+// @Router /api/v1/admin [get]
 func GetAdmin(w http.ResponseWriter, r *http.Request) {
 	var admin []models.Admin
 	if result := database.DB.Find(&admin); result.Error != nil {
@@ -73,7 +73,7 @@ func GetAdmin(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Admin
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 404 {string} string "Not Found"
-// @Router /admin/{id} [get]
+// @Router /api/v1/admin/{id} [get]
 func GetAdminID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -103,7 +103,7 @@ func GetAdminID(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Admin
 // @Failure 400 {string} string "Invalid ID or Bad Request"
 // @Failure 404 {string} string "Not Found"
-// @Router /admin/{id} [put]
+// @Router /api/v1/admin/{id} [put]
 func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -136,7 +136,7 @@ func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 // @Success 204 {string} string "No Content"
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /admin/{id} [delete]
+// @Router /api/v1/admin/{id} [delete]
 func DeleteAdmin(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])

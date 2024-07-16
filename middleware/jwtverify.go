@@ -2,12 +2,14 @@ package middleware
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/sahilchauhan0603/backend/controllers"
 )
 
 // JWTVerify is the middleware to verify JWT tokens
@@ -41,7 +43,7 @@ func JWTVerify(next http.Handler) http.Handler {
 
 		// Parse the token
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			
+
 			// Make sure that the token method conforms to "SigningMethodHMAC"
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -70,4 +72,45 @@ func JWTVerify(next http.Handler) http.Handler {
 		// Proceed to the next handler
 		next.ServeHTTP(w, r)
 	})
+}
+
+// validateTokenHandler handles the /validate-token endpoint
+// @Summary Validate ID token and generate JWT
+// @Description Validate the provided ID token from Microsoft and generate a new JWT.
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param idToken body string true "ID Token"
+// @Success 200 {string} string "JWT"
+// @Failure 400 {string} string "Invalid token"
+// @Failure 500 {string} string "Internal server error"
+// @Router /api/v1/validateToken [post]
+// @Security BearerAuth
+func ValidateTokenHandler(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		IDToken string `json:"idToken"`
+	}
+
+	// Decode the request body
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+    
+	// Log the received ID token for debugging
+    fmt.Printf("Received ID token: %s\n", req.IDToken)
+	
+	// Validate the ID token and generate a new JWT
+	jwtString, err := controllers.ValidateTokenAndGenerateJWT(req.IDToken)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+    w.Write([]byte("Token validated successfully"))
+
+	// Return the JWT
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"jwt": jwtString})
 }

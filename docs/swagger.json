@@ -1,10 +1,14 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is Project Management API documentation",
+        "title": "Project Management APIs",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "localhost:8000",
     "paths": {
-        "/admin": {
+        "/api/v1/admin": {
             "get": {
                 "description": "Get all admins",
                 "produces": [
@@ -77,7 +81,7 @@
                 }
             }
         },
-        "/admin/{id}": {
+        "/api/v1/admin/{id}": {
             "get": {
                 "description": "Get admin by ID",
                 "produces": [
@@ -205,7 +209,7 @@
                 }
             }
         },
-        "/project": {
+        "/api/v1/project": {
             "get": {
                 "description": "Get all projects",
                 "produces": [
@@ -278,7 +282,7 @@
                 }
             }
         },
-        "/project/{id}": {
+        "/api/v1/project/{id}": {
             "get": {
                 "description": "Get project by ID",
                 "produces": [
@@ -406,7 +410,7 @@
                 }
             }
         },
-        "/uploader": {
+        "/api/v1/upload": {
             "get": {
                 "description": "Get all uploaders",
                 "produces": [
@@ -479,7 +483,7 @@
                 }
             }
         },
-        "/uploader/{id}": {
+        "/api/v1/upload/{id}": {
             "get": {
                 "description": "Get uploader by ID",
                 "produces": [
@@ -600,6 +604,57 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/validateToken": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Validate the provided ID token from Microsoft and generate a new JWT.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Validate ID token and generate JWT",
+                "parameters": [
+                    {
+                        "description": "ID Token",
+                        "name": "idToken",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JWT",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
                         "schema": {
                             "type": "string"
                         }
@@ -735,6 +790,13 @@
                     "type": "integer"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

@@ -130,10 +130,14 @@ definitions:
           required: true
         type: integer
     type: object
+host: localhost:8000
 info:
   contact: {}
+  description: This is Project Management API documentation
+  title: Project Management APIs
+  version: "1.0"
 paths:
-  /admin:
+  /api/v1/admin:
     get:
       description: Get all admins
       produces:
@@ -181,7 +185,7 @@ paths:
       summary: Create a new admin
       tags:
       - admin
-  /admin/{id}:
+  /api/v1/admin/{id}:
     delete:
       description: Delete admin by ID
       parameters:
@@ -266,7 +270,7 @@ paths:
       summary: Update admin by ID
       tags:
       - admin
-  /project:
+  /api/v1/project:
     get:
       description: Get all projects
       produces:
@@ -314,7 +318,7 @@ paths:
       summary: Create a new project
       tags:
       - project
-  /project/{id}:
+  /api/v1/project/{id}:
     delete:
       description: Delete project by ID
       parameters:
@@ -399,7 +403,7 @@ paths:
       summary: Update project by ID
       tags:
       - project
-  /uploader:
+  /api/v1/upload:
     get:
       description: Get all uploaders
       produces:
@@ -447,7 +451,7 @@ paths:
       summary: Create a new uploader
       tags:
       - uploader
-  /uploader/{id}:
+  /api/v1/upload/{id}:
     delete:
       description: Delete uploader by ID
       parameters:
@@ -532,4 +536,42 @@ paths:
       summary: Update uploader by ID
       tags:
       - uploader
+  /api/v1/validateToken:
+    post:
+      consumes:
+      - application/json
+      description: Validate the provided ID token from Microsoft and generate a new
+        JWT.
+      parameters:
+      - description: ID Token
+        in: body
+        name: idToken
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT
+          schema:
+            type: string
+        "400":
+          description: Invalid token
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Validate ID token and generate JWT
+      tags:
+      - auth
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

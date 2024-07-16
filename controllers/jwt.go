@@ -6,8 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/sahilchauhan0603/backend/utils"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // ValidateTokenAndGenerateJWT validates the provided ID token and generates a new JWT.

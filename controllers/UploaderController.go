@@ -21,7 +21,7 @@ import (
 // @Success 201 {object} models.Uploader
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /uploader [post]
+// @Router /api/v1/upload [post]
 func CreateUploader(w http.ResponseWriter, r *http.Request) {
 	var uploader models.Uploader
 	if err := json.NewDecoder(r.Body).Decode(&uploader); err != nil {
@@ -45,7 +45,7 @@ func CreateUploader(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Success 200 {array} models.Uploader
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /uploader [get]
+// @Router /api/v1/upload [get]
 func GetUploader(w http.ResponseWriter, r *http.Request) {
 	var uploaders []models.Uploader
 	if result := database.DB.Find(&uploaders); result.Error != nil {
@@ -66,7 +66,7 @@ func GetUploader(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Uploader
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 404 {string} string "Not Found"
-// @Router /uploader/{id} [get]
+// @Router /api/v1/upload/{id} [get]
 func GetUploaderID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -96,7 +96,7 @@ func GetUploaderID(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.Uploader
 // @Failure 400 {string} string "Invalid ID or Bad Request"
 // @Failure 404 {string} string "Not Found"
-// @Router /uploader/{id} [put]
+// @Router /api/v1/upload/{id} [put]
 func UpdateUploader(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
@@ -129,7 +129,7 @@ func UpdateUploader(w http.ResponseWriter, r *http.Request) {
 // @Success 204 {string} string "No Content"
 // @Failure 400 {string} string "Invalid ID"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /uploader/{id} [delete]
+// @Router /api/v1/upload/{id} [delete]
 func DeleteUploader(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])

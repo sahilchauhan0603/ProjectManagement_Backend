@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/admin": {
+        "/api/v1/admin": {
             "get": {
                 "description": "Get all admins",
                 "produces": [
@@ -88,7 +88,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/{id}": {
+        "/api/v1/admin/{id}": {
             "get": {
                 "description": "Get admin by ID",
                 "produces": [
@@ -216,7 +216,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/project": {
+        "/api/v1/project": {
             "get": {
                 "description": "Get all projects",
                 "produces": [
@@ -289,7 +289,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/project/{id}": {
+        "/api/v1/project/{id}": {
             "get": {
                 "description": "Get project by ID",
                 "produces": [
@@ -417,7 +417,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/uploader": {
+        "/api/v1/upload": {
             "get": {
                 "description": "Get all uploaders",
                 "produces": [
@@ -490,7 +490,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/uploader/{id}": {
+        "/api/v1/upload/{id}": {
             "get": {
                 "description": "Get uploader by ID",
                 "produces": [
@@ -611,6 +611,57 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/validateToken": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Validate the provided ID token from Microsoft and generate a new JWT.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Validate ID token and generate JWT",
+                "parameters": [
+                    {
+                        "description": "ID Token",
+                        "name": "idToken",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JWT",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
                         "schema": {
                             "type": "string"
                         }
@@ -747,17 +798,24 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
+	Version:          "1.0",
+	Host:             "localhost:8000",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Project Management APIs",
+	Description:      "This is Project Management API documentation",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
