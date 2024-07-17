@@ -92,61 +92,63 @@ func InitializeRoutes(router *mux.Router) {
 	// @Router /api/v1/upload/{id} [delete]
 	uploaderRouter.HandleFunc("/upload/{id}", controllers.DeleteUploader).Methods("DELETE")
 
-	// Project routes
-	projectRouter := router.PathPrefix("/api/v1").Subrouter()
-	projectRouter.Use(middleware.JWTVerify)
 
-	// @Summary Create a new project
-	// @Description Create a new project
-	// @Tags Projects
+	// Work routes
+	workRouter := router.PathPrefix("/api/v1").Subrouter()
+	workRouter.Use(middleware.JWTVerify)
+
+	// @Summary Create a new work
+	// @Description Create a new work
+	// @Tags Works
 	// @Accept json
 	// @Produce json
-	// @Param project body models.Project true "Project information"
-	// @Success 201 {object} models.Project
+	// @Param project body models.Work true "Work information"
+	// @Success 201 {object} models.Work
 	// @Failure 400 {string} string "Bad Request"
-	// @Router /api/v1/project [post]
-	projectRouter.HandleFunc("/project", controllers.CreateProject).Methods("POST")
+	// @Router /api/v1/work [post]
+	workRouter.HandleFunc("/work", controllers.CreateWork).Methods("POST")
 
-	// @Summary Get all projects
-	// @Description Retrieve all projects
-	// @Tags Projects
+	// @Summary Get all works
+	// @Description Retrieve all works
+	// @Tags Works
 	// @Produce json
-	// @Success 200 {array} models.Project
+	// @Success 200 {array} models.Work
 	// @Failure 500 {string} string "Internal Server Error"
-	// @Router /api/v1/project [get]
-	projectRouter.HandleFunc("/project", controllers.GetProject).Methods("GET")
+	// @Router /api/v1/work [get]
+	workRouter.HandleFunc("/work", controllers.GetWork).Methods("GET")
 
-	// @Summary Get project by ID
-	// @Description Retrieve project by ID
-	// @Tags Projects
+	// @Summary Get work by ID
+	// @Description Retrieve work by ID
+	// @Tags Works
 	// @Produce json
-	// @Param id path int true "Project ID"
-	// @Success 200 {object} models.Project
-	// @Failure 404 {string} string "Project not found"
-	// @Router /api/v1/project/{id} [get]
-	projectRouter.HandleFunc("/project/{id}", controllers.GetProjectID).Methods("GET")
+	// @Param id path int true "Work ID"
+	// @Success 200 {object} models.Work
+	// @Failure 404 {string} string "Work not found"
+	// @Router /api/v1/work/{id} [get]
+	workRouter.HandleFunc("/work/{id}", controllers.GetWorkID).Methods("GET")
 
-	// @Summary Update project
-	// @Description Update project by ID
-	// @Tags Projects
+	// @Summary Update work
+	// @Description Update work by ID
+	// @Tags Works
 	// @Accept json
 	// @Produce json
-	// @Param id path int true "Project ID"
-	// @Param project body models.Project true "Project information"
-	// @Success 200 {object} models.Project
-	// @Failure 404 {string} string "Project not found"
+	// @Param id path int true "Work ID"
+	// @Param project body models.Work true "Work information"
+	// @Success 200 {object} models.Work
+	// @Failure 404 {string} string "Work not found"
 	// @Failure 400 {string} string "Bad Request"
-	// @Router /api/v1/project/{id} [put]
-	projectRouter.HandleFunc("/project/{id}", controllers.UpdateProject).Methods("PUT")
+	// @Router /api/v1/work/{id} [put]
+	workRouter.HandleFunc("/work/{id}", controllers.UpdateWork).Methods("PUT")
 
-	// @Summary Delete project
-	// @Description Delete project by ID
-	// @Tags Projects
-	// @Param id path int true "Project ID"
+	// @Summary Delete work
+	// @Description Delete work by ID
+	// @Tags Works
+	// @Param id path int true "Work ID"
 	// @Success 204 {string} string "No Content"
-	// @Failure 404 {string} string "Project not found"
-	// @Router /api/v1/project/{id} [delete]
-	projectRouter.HandleFunc("/project/{id}", controllers.DeleteProject).Methods("DELETE")
+	// @Failure 404 {string} string "Work not found"
+	// @Router /api/v1/work/{id} [delete]
+	workRouter.HandleFunc("/work/{id}", controllers.DeleteWork).Methods("DELETE")
+
 
 	// Admin routes
 	adminRouter := router.PathPrefix("/api/v1").Subrouter()

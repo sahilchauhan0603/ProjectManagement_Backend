@@ -280,21 +280,21 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/project": {
+        "/api/v1/work": {
             "get": {
-                "description": "Get all projects",
+                "description": "Get all works",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "summary": "Get all projects",
+                "summary": "Get all works",
                 "parameters": [
                     {
                         "name": "Authorization",
@@ -309,7 +309,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Project"
+                                "$ref": "#/definitions/models.Work"
                             }
                         }
                     },
@@ -322,7 +322,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Create a new project",
+                "description": "Create a new work",
                 "consumes": [
                     "application/json"
                 ],
@@ -330,22 +330,22 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "summary": "Create a new project",
+                "summary": "Create a new work",
                 "parameters": [
                     {
                         "description": "Project",
-                        "name": "project",
+                        "name": "work",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     {
@@ -359,7 +359,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -377,25 +377,25 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/project/{id}": {
+        "/api/v1/work/{id}": {
             "get": {
-                "description": "Get project by ID",
+                "description": "Get work by ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "summary": "Get project by ID",
+                "summary": "Get work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -411,7 +411,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -429,7 +429,7 @@ const docTemplate = `{
                 }
             },
             "put": {
-                "description": "Update project by ID",
+                "description": "Update work by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -437,18 +437,18 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "summary": "Update project by ID",
+                "summary": "Update work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -460,12 +460,12 @@ const docTemplate = `{
                         "type": "string"
                     },
                     {
-                        "description": "Project",
-                        "name": "project",
+                        "description": "Work",
+                        "name": "work",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     }
                 ],
@@ -473,7 +473,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -491,20 +491,20 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete project by ID",
+                "description": "Delete work by ID",
                 "tags": [
-                    "project"
+                    "work"
                 ],
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "summary": "Delete project by ID",
+                "summary": "Delete work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -818,11 +818,11 @@ const docTemplate = `{
                     "description": "Password of the Admin\nrequired: true",
                     "type": "string"
                 },
-                "project": {
-                    "description": "Projects associated with the Admin",
+                "work": {
+                    "description": "Works associated with the Admin",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.Project"
+                        "$ref": "#/definitions/models.Work"
                     }
                 },
                 "uploader": {
@@ -838,8 +838,8 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Project": {
-            "description": "Project model",
+        "models.Work": {
+            "description": "Work model",
             "type": "object",
             "properties": {
                 "admin_id": {
@@ -847,7 +847,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "approach": {
-                    "description": "Approach used in the project\nrequired: true",
+                    "description": "Approach used in the work\nrequired: true",
                     "type": "string"
                 },
                 "created_at": {
@@ -855,31 +855,35 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
-                    "description": "Description of the project\nrequired: true",
+                    "description": "Description of the work\nrequired: true",
                     "type": "string"
                 },
-                "project_id": {
-                    "description": "ProjectID is the primary key\nrequired: true",
+                "work_id": {
+                    "description": "WorkID is the primary key\nrequired: true",
                     "type": "integer"
                 },
                 "proof": {
-                    "description": "Proof related to the project\nrequired: true",
+                    "description": "Proof related to the work\nrequired: true",
                     "type": "string"
                 },
                 "supervisor": {
-                    "description": "Supervisor of the project\nrequired: true",
+                    "description": "Supervisor of the work\nrequired: true",
                     "type": "string"
                 },
                 "title": {
-                    "description": "Title of the project\nrequired: true",
+                    "description": "Title of the work\nrequired: true",
                     "type": "string"
                 },
                 "topic": {
-                    "description": "Topic of the project\nrequired: true",
+                    "description": "Topic of the work\nrequired: true",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of the work\nrequired: true",
                     "type": "string"
                 },
                 "uploaders": {
-                    "description": "Uploaders associated with the project",
+                    "description": "Uploaders associated with the work",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Uploader"
@@ -919,8 +923,8 @@ const docTemplate = `{
                     "description": "LastName of the uploader\nrequired: true",
                     "type": "string"
                 },
-                "project_id": {
-                    "description": "ProjectID is the foreign key to Project\nrequired: true",
+                "work_id": {
+                    "description": "WorkID is the foreign key to Work\nrequired: true",
                     "type": "integer"
                 }
             }

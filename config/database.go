@@ -17,7 +17,7 @@ var err error
 //
 // This function retrieves environment variables for the database connection,
 // checks if the database exists, creates it if it doesn't, and performs
-// auto-migration for the Admin, Project, and Uploader models.
+// auto-migration for the Admin, Work, and Uploader models.
 //
 // It is expected that the following environment variables are set:
 // - DB_NAME: Name of the database
@@ -67,7 +67,7 @@ func DatabaseConnector() {
 	}
 
 	// Then migrate the related tables
-	err = DB.AutoMigrate(&models.Project{}, &models.Uploader{})
+	err = DB.AutoMigrate(&models.Work{}, &models.Uploader{})
 	if err != nil {
 		log.Fatalf("failed to migrate related tables: %v", err)
 	}

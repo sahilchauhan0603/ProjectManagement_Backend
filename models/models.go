@@ -26,36 +26,40 @@ type Admin struct {
 	Uploader []Uploader `gorm:"foreignKey:AdminID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 
 	// Projects associated with the Admin
-	Project []Project `gorm:"foreignKey:AdminID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Work []Work `gorm:"foreignKey:AdminID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 
 	// CreatedAt timestamp
 	CreatedAt time.Time
 }
 
-// Project represents the project model
-// @Description Project model
-type Project struct {
-	// ProjectID is the primary key
+// Work represents the Work model
+// @Description Work model
+type Work struct {
+	// WorkID is the primary key
 	// required: true
-	ProjectID int64 `json:"project_id" gorm:"primaryKey;autoIncrement"`
+	WorkID int64 `json:"work_id" gorm:"primaryKey;autoIncrement"`
 
-	// Title of the project
+	// Title of the Work
 	// required: true
 	Title string `json:"title"`
 
-	// Topic of the project
+	// Topic of the Work
 	// required: true
 	Topic string `json:"topic"`
 
-	// Approach used in the project
+	// Type of the Work
+	// required: true
+	Type string `json:"type"`
+
+	// Approach used in the Work
 	// required: true
 	Approach string `json:"approach"`
 
-	// Description of the project
+	// Description of the Work
 	// required: true
 	Description string `json:"description"`
 
-	// Supervisor of the project
+	// Supervisor of the Work
 	// required: true
 	Supervisor string `json:"supervisor"`
 
@@ -63,12 +67,12 @@ type Project struct {
 	// required: true
 	AdminID int64 `json:"admin_id" gorm:"index"`
 
-	// Proof related to the project
+	// Proof related to the Work
 	// required: true
 	Proof string `json:"proof"`
 
-	// Uploaders associated with the project
-	Uploaders []Uploader `json:"uploaders" gorm:"foreignKey:ProjectID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// Uploaders associated with the Work
+	Uploaders []Uploader `json:"uploaders" gorm:"foreignKey:WorkID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 
 	// CreatedAt timestamp
 	CreatedAt time.Time `json:"created_at"`
@@ -93,9 +97,9 @@ type Uploader struct {
 	// required: true
 	CollegeName string `json:"college_name"`
 
-	// ProjectID is the foreign key to Project
+	// WorkID is the foreign key to Work
 	// required: true
-	ProjectID int64 `json:"project_id" gorm:"index"`
+	WorkID int64 `json:"work_id" gorm:"index"`
 
 	// AdminID is the foreign key to Admin
 	// required: true
