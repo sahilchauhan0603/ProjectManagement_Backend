@@ -11,8 +11,6 @@ import (
 
 func InitializeRoutes(router *mux.Router) {
     
-	// Auth route	
-	router.HandleFunc("/api/v1/validateToken", middleware.ValidateTokenHandler).Methods("POST")
 
 	// Handle preflight requests for the /api/v1 endpoints
     router.PathPrefix("/api/v1").Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

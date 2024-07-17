@@ -14,6 +14,13 @@ const docTemplate = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
     "paths": {
         "/api/v1/admin": {
             "get": {
@@ -24,7 +31,20 @@ const docTemplate = `{
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get all admins",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -54,6 +74,11 @@ const docTemplate = `{
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Create a new admin",
                 "parameters": [
                     {
@@ -64,6 +89,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Admin"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -97,6 +128,11 @@ const docTemplate = `{
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get admin by ID",
                 "parameters": [
                     {
@@ -105,6 +141,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -139,6 +181,11 @@ const docTemplate = `{
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Update admin by ID",
                 "parameters": [
                     {
@@ -156,6 +203,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Admin"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -184,6 +237,11 @@ const docTemplate = `{
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Delete admin by ID",
                 "parameters": [
                     {
@@ -192,6 +250,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -226,6 +290,14 @@ const docTemplate = `{
                     "project"
                 ],
                 "summary": "Get all projects",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -265,6 +337,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Project"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -306,6 +384,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -348,6 +432,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     },
                     {
                         "description": "Project",
@@ -393,6 +483,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -427,6 +523,14 @@ const docTemplate = `{
                     "uploader"
                 ],
                 "summary": "Get all uploaders",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -466,6 +570,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Uploader"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -507,6 +617,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -549,6 +665,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     },
                     {
                         "description": "Uploader",
@@ -594,6 +716,12 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -797,13 +925,6 @@ const docTemplate = `{
                     "type": "integer"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }`
