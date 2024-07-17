@@ -23,6 +23,7 @@ import (
 // @in header
 // @name Authorization
 func main() {
+
 	// Load environment variables
 	err := godotenv.Load()
 	if err != nil {
@@ -53,15 +54,3 @@ func main() {
 	log.Fatalf("Failed to start server: %v", http.ListenAndServe(fmt.Sprintf(":%s", port), cors(router)))
 }
 
-
-
-/*
-// @title Project Management APIs
-// @version 1.0
-// @description This is Project Management API documentation
-// @host localhost:8000
-// @BasePath /api/v1
-// @securityDefinitions.apikey BearerAuth
-// @in header
-// @name Authorization
-*/

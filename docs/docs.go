@@ -289,6 +289,11 @@ const docTemplate = `{
                 "tags": [
                     "project"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get all projects",
                 "parameters": [
                     {
@@ -326,6 +331,11 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "project"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new project",
                 "parameters": [
@@ -376,6 +386,11 @@ const docTemplate = `{
                 "tags": [
                     "project"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get project by ID",
                 "parameters": [
                     {
@@ -423,6 +438,11 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "project"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update project by ID",
                 "parameters": [
@@ -475,6 +495,11 @@ const docTemplate = `{
                 "tags": [
                     "project"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Delete project by ID",
                 "parameters": [
                     {
@@ -522,6 +547,11 @@ const docTemplate = `{
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get all uploaders",
                 "parameters": [
                     {
@@ -559,6 +589,11 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "uploader"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new uploader",
                 "parameters": [
@@ -609,6 +644,11 @@ const docTemplate = `{
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get uploader by ID",
                 "parameters": [
                     {
@@ -656,6 +696,11 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "uploader"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update uploader by ID",
                 "parameters": [
@@ -708,6 +753,11 @@ const docTemplate = `{
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Delete uploader by ID",
                 "parameters": [
                     {
@@ -746,57 +796,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/validateToken": {
-            "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Validate the provided ID token from Microsoft and generate a new JWT.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Validate ID token and generate JWT",
-                "parameters": [
-                    {
-                        "description": "ID Token",
-                        "name": "idToken",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "JWT",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid token",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        }
     },
     "definitions": {
         "models.Admin": {

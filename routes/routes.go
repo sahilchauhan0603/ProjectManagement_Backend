@@ -11,7 +11,6 @@ import (
 
 func InitializeRoutes(router *mux.Router) {
     
-
 	// Handle preflight requests for the /api/v1 endpoints
     router.PathPrefix("/api/v1").Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         w.Header().Set("Access-Control-Allow-Origin", "*")

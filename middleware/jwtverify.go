@@ -2,14 +2,12 @@ package middleware
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/sahilchauhan0603/backend/controllers"
 )
 
 // JWTVerify is the middleware to verify JWT tokens
@@ -74,6 +72,7 @@ func JWTVerify(next http.Handler) http.Handler {
 	})
 }
 
+/*
 // validateTokenHandler handles the /validate-token endpoint
 // @Summary Validate ID token and generate JWT
 // @Description Validate the provided ID token from Microsoft and generate a new JWT.
@@ -96,10 +95,10 @@ func ValidateTokenHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
-    
+
 	// Log the received ID token for debugging
     fmt.Printf("Received ID token: %s\n", req.IDToken)
-	
+
 	// Validate the ID token and generate a new JWT
 	jwtString, err := controllers.ValidateTokenAndGenerateJWT(req.IDToken)
 	if err != nil {
@@ -114,3 +113,4 @@ func ValidateTokenHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"jwt": jwtString})
 }
+*/
