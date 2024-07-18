@@ -20,8 +20,8 @@ definitions:
           Password of the Admin
           required: true
         type: string
-      project:
-        description: Projects associated with the Admin
+      Work:
+        description: Work associated with the Admin
         items:
           $ref: '#/definitions/models.Project'
         type: array
@@ -36,8 +36,8 @@ definitions:
           required: true
         type: string
     type: object
-  models.Project:
-    description: Project model
+  models.Work:
+    description: Work model
     properties:
       admin_id:
         description: |-
@@ -46,7 +46,7 @@ definitions:
         type: integer
       approach:
         description: |-
-          Approach used in the project
+          Approach used in the work
           required: true
         type: string
       created_at:
@@ -54,36 +54,41 @@ definitions:
         type: string
       description:
         description: |-
-          Description of the project
+          Description of the work
           required: true
         type: string
-      project_id:
+      work_id:
         description: |-
-          ProjectID is the primary key
+          wWrkID is the primary key
           required: true
         type: integer
       proof:
         description: |-
-          Proof related to the project
+          Proof related to the work
           required: true
         type: string
       supervisor:
         description: |-
-          Supervisor of the project
+          Supervisor of the Work
           required: true
         type: string
       title:
         description: |-
-          Title of the project
+          Title of the Work
           required: true
         type: string
       topic:
         description: |-
-          Topic of the project
+          Topic of the Work
+          required: true
+        type: string
+      type:
+        description: |-
+          Type of the Work
           required: true
         type: string
       uploaders:
-        description: Uploaders associated with the project
+        description: Uploaders associated with the work
         items:
           $ref: '#/definitions/models.Uploader'
         type: array
@@ -124,11 +129,19 @@ definitions:
           LastName of the uploader
           required: true
         type: string
-      project_id:
+      work_id:
         description: |-
-          ProjectID is the foreign key to Project
+          WorkID is the foreign key to Work
           required: true
         type: integer
+    type: object
+  models.EmailRequest:
+    description: EmailRequest model
+    properties:
+      email:
+        description: |-
+          Email of the uploader
+        type: string
     type: object
 host: localhost:8000
 info:
@@ -270,9 +283,9 @@ paths:
       summary: Update admin by ID
       tags:
       - admin
-  /api/v1/project:
+  /api/v1/work:
     get:
-      description: Get all projects
+      description: Get all works
       produces:
       - application/json
       responses:
@@ -280,33 +293,33 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/models.Project'
+              $ref: '#/definitions/models.Work'
             type: array
         "500":
           description: Internal Server Error
           schema:
             type: string
-      summary: Get all projects
+      summary: Get all works
       tags:
       - project
     post:
       consumes:
       - application/json
-      description: Create a new project
+      description: Create a new work
       parameters:
-      - description: Project
+      - description: Work
         in: body
-        name: project
+        name: work
         required: true
         schema:
-          $ref: '#/definitions/models.Project'
+          $ref: '#/definitions/models.Work'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.Project'
+            $ref: '#/definitions/models.Work'
         "400":
           description: Bad Request
           schema:
@@ -315,12 +328,12 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Create a new project
+      summary: Create a new work
       tags:
       - project
-  /api/v1/project/{id}:
+  /api/v1/work/{id}:
     delete:
-      description: Delete project by ID
+      description: Delete work by ID
       parameters:
       - description: Project ID
         in: path
@@ -340,13 +353,13 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Delete project by ID
+      summary: Delete work by ID
       tags:
       - project
     get:
-      description: Get project by ID
+      description: Get work by ID
       parameters:
-      - description: Project ID
+      - description: Work ID
         in: path
         name: id
         required: true
@@ -357,7 +370,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Project'
+            $ref: '#/definitions/models.Work'
         "400":
           description: Invalid ID
           schema:
@@ -366,32 +379,32 @@ paths:
           description: Not Found
           schema:
             type: string
-      summary: Get project by ID
+      summary: Get work by ID
       tags:
       - project
     put:
       consumes:
       - application/json
-      description: Update project by ID
+      description: Update work by ID
       parameters:
-      - description: Project ID
+      - description: Work ID
         in: path
         name: id
         required: true
         type: integer
-      - description: Project
+      - description: Work
         in: body
         name: project
         required: true
         schema:
-          $ref: '#/definitions/models.Project'
+          $ref: '#/definitions/models.Work'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Project'
+            $ref: '#/definitions/models.Work'
         "400":
           description: Invalid ID or Bad Request
           schema:
@@ -400,9 +413,9 @@ paths:
           description: Not Found
           schema:
             type: string
-      summary: Update project by ID
+      summary: Update work by ID
       tags:
-      - project
+      - work
   /api/v1/upload:
     get:
       description: Get all uploaders
@@ -536,16 +549,15 @@ paths:
       summary: Update uploader by ID
       tags:
       - uploader
-  /api/v1/validateToken:
+  /api/v1/sendEmail:
     post:
       consumes:
       - application/json
-      description: Validate the provided ID token from Microsoft and generate a new
-        JWT.
+      description: Sends an Email
       parameters:
-      - description: ID Token
+      - description: Email
         in: body
-        name: idToken
+        name: email
         required: true
         schema:
           type: string
@@ -553,22 +565,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: JWT
+          description: Successfully Send
           schema:
             type: string
         "400":
-          description: Invalid token
+          description: Bad Request
           schema:
             type: string
         "500":
           description: Internal server error
           schema:
             type: string
-      security:
-      - BearerAuth: []
-      summary: Validate ID token and generate JWT
       tags:
-      - auth
+      - email
 securityDefinitions:
   BearerAuth:
     in: header

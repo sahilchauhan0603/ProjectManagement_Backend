@@ -206,4 +206,20 @@ func InitializeRoutes(router *mux.Router) {
 	// @Router /api/v1/admin/{id} [delete]
 	adminRouter.HandleFunc("/admin/{id}", controllers.DeleteAdmin).Methods("DELETE")
 
+
+	// testing route
+	emailRouter := router.PathPrefix("/api/v1").Subrouter()
+	emailRouter.Use(middleware.JWTVerify)
+
+	// @Summary Create a email
+	// @Description Create a email
+	// @Tags Email
+	// @Accept json
+	// @Produce json
+	// @Param admin body models.EmailRequest true "Email sending"
+	// @Success 201 {object} models.EmailRequest
+	// @Failure 400 {string} string "Bad Request"
+	// @Router /api/v1/sendEmail [post]
+    emailRouter.HandleFunc("/sendEmail", controllers.SendEmail).Methods("POST")
+
 }

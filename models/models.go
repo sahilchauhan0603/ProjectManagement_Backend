@@ -25,7 +25,7 @@ type Admin struct {
 	// Uploader associated with the Admin
 	Uploader []Uploader `gorm:"foreignKey:AdminID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 
-	// Projects associated with the Admin
+	// Works associated with the Admin
 	Work []Work `gorm:"foreignKey:AdminID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 
 	// CreatedAt timestamp
@@ -111,4 +111,14 @@ type Uploader struct {
 
 	// CreatedAt timestamp
 	CreatedAt time.Time `json:"created_at"`
+}
+
+
+// EmailRequest represents the EmailRequest model
+// @Description EmailRequest model
+type EmailRequest struct {
+
+	// Email of the user
+	// required: true
+	Email string `json:"email"`
 }

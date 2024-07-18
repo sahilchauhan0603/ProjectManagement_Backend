@@ -17,6 +17,11 @@
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get all admins",
                 "responses": {
                     "200": {
@@ -46,6 +51,11 @@
                 ],
                 "tags": [
                     "admin"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new admin",
                 "parameters": [
@@ -90,6 +100,11 @@
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get admin by ID",
                 "parameters": [
                     {
@@ -131,6 +146,11 @@
                 ],
                 "tags": [
                     "admin"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update admin by ID",
                 "parameters": [
@@ -177,6 +197,11 @@
                 "tags": [
                     "admin"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Delete admin by ID",
                 "parameters": [
                     {
@@ -209,23 +234,28 @@
                 }
             }
         },
-        "/api/v1/project": {
+        "/api/v1/work": {
             "get": {
-                "description": "Get all projects",
+                "description": "Get all works",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
-                "summary": "Get all projects",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Get all works",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Project"
+                                "$ref": "#/definitions/models.Work"
                             }
                         }
                     },
@@ -238,7 +268,7 @@
                 }
             },
             "post": {
-                "description": "Create a new project",
+                "description": "Create a new work",
                 "consumes": [
                     "application/json"
                 ],
@@ -246,17 +276,22 @@
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
-                "summary": "Create a new project",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Create a new work",
                 "parameters": [
                     {
                         "description": "Project",
-                        "name": "project",
+                        "name": "work",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     }
                 ],
@@ -264,7 +299,7 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -282,20 +317,25 @@
                 }
             }
         },
-        "/api/v1/project/{id}": {
+        "/api/v1/work/{id}": {
             "get": {
-                "description": "Get project by ID",
+                "description": "Get work by ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
-                "summary": "Get project by ID",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Get work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -305,7 +345,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -323,7 +363,7 @@
                 }
             },
             "put": {
-                "description": "Update project by ID",
+                "description": "Update work by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -331,24 +371,29 @@
                     "application/json"
                 ],
                 "tags": [
-                    "project"
+                    "work"
                 ],
-                "summary": "Update project by ID",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Update work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Project",
-                        "name": "project",
+                        "description": "Work",
+                        "name": "work",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     }
                 ],
@@ -356,7 +401,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/models.Work"
                         }
                     },
                     "400": {
@@ -374,15 +419,20 @@
                 }
             },
             "delete": {
-                "description": "Delete project by ID",
+                "description": "Delete work by ID",
                 "tags": [
-                    "project"
+                    "work"
                 ],
-                "summary": "Delete project by ID",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Delete work by ID",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Work ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -419,6 +469,11 @@
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get all uploaders",
                 "responses": {
                     "200": {
@@ -448,6 +503,11 @@
                 ],
                 "tags": [
                     "uploader"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new uploader",
                 "parameters": [
@@ -492,6 +552,11 @@
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Get uploader by ID",
                 "parameters": [
                     {
@@ -533,6 +598,11 @@
                 ],
                 "tags": [
                     "uploader"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update uploader by ID",
                 "parameters": [
@@ -579,6 +649,11 @@
                 "tags": [
                     "uploader"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Delete uploader by ID",
                 "parameters": [
                     {
@@ -611,14 +686,9 @@
                 }
             }
         },
-        "/api/v1/validateToken": {
+        "/api/v1/sendEmail": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Validate the provided ID token from Microsoft and generate a new JWT.",
+                "description": "Sends an Email",
                 "consumes": [
                     "application/json"
                 ],
@@ -626,35 +696,40 @@
                     "application/json"
                 ],
                 "tags": [
-                    "auth"
+                    "email"
                 ],
-                "summary": "Validate ID token and generate JWT",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Sends an email to reset password",
                 "parameters": [
                     {
-                        "description": "ID Token",
-                        "name": "idToken",
+                        "description": "Email",
+                        "name": "email",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.EmailRequest"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "JWT",
+                    "201": {
+                        "description": "Successfully Send",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.EmailRequest"
                         }
                     },
                     "400": {
-                        "description": "Invalid token",
+                        "description": "Bad Request",
                         "schema": {
                             "type": "string"
                         }
                     },
                     "500": {
-                        "description": "Internal server error",
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "string"
                         }
@@ -664,7 +739,7 @@
         }
     },
     "definitions": {
-        "models.Admin": {
+        "Admin": {
             "description": "Admin model",
             "type": "object",
             "properties": {
@@ -684,11 +759,11 @@
                     "description": "Password of the Admin\nrequired: true",
                     "type": "string"
                 },
-                "project": {
-                    "description": "Projects associated with the Admin",
+                "work": {
+                    "description": "Works associated with the Admin",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.Project"
+                        "$ref": "#/definitions/models.Work"
                     }
                 },
                 "uploader": {
@@ -704,8 +779,8 @@
                 }
             }
         },
-        "models.Project": {
-            "description": "Project model",
+        "Work": {
+            "description": "Work model",
             "type": "object",
             "properties": {
                 "admin_id": {
@@ -713,7 +788,7 @@
                     "type": "integer"
                 },
                 "approach": {
-                    "description": "Approach used in the project\nrequired: true",
+                    "description": "Approach used in the work\nrequired: true",
                     "type": "string"
                 },
                 "created_at": {
@@ -721,31 +796,35 @@
                     "type": "string"
                 },
                 "description": {
-                    "description": "Description of the project\nrequired: true",
+                    "description": "Description of the work\nrequired: true",
                     "type": "string"
                 },
-                "project_id": {
-                    "description": "ProjectID is the primary key\nrequired: true",
+                "work_id": {
+                    "description": "WorkID is the primary key\nrequired: true",
                     "type": "integer"
                 },
                 "proof": {
-                    "description": "Proof related to the project\nrequired: true",
+                    "description": "Proof related to the work\nrequired: true",
                     "type": "string"
                 },
                 "supervisor": {
-                    "description": "Supervisor of the project\nrequired: true",
+                    "description": "Supervisor of the work\nrequired: true",
                     "type": "string"
                 },
                 "title": {
-                    "description": "Title of the project\nrequired: true",
+                    "description": "Title of the work\nrequired: true",
                     "type": "string"
                 },
                 "topic": {
-                    "description": "Topic of the project\nrequired: true",
+                    "description": "Topic of the work\nrequired: true",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of the work\nrequired: true",
                     "type": "string"
                 },
                 "uploaders": {
-                    "description": "Uploaders associated with the project",
+                    "description": "Uploaders associated with the work",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Uploader"
@@ -753,7 +832,7 @@
                 }
             }
         },
-        "models.Uploader": {
+        "Uploader": {
             "description": "Uploader model",
             "type": "object",
             "properties": {
@@ -785,9 +864,19 @@
                     "description": "LastName of the uploader\nrequired: true",
                     "type": "string"
                 },
-                "project_id": {
-                    "description": "ProjectID is the foreign key to Project\nrequired: true",
+                "work_id": {
+                    "description": "WorkID is the foreign key to Work\nrequired: true",
                     "type": "integer"
+                }
+            }
+        },
+        "EmailRequest": {
+            "description": "Email model",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "description": "Email\nrequired: true",
+                    "type": "string"
                 }
             }
         }

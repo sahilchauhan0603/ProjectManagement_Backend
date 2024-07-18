@@ -37,14 +37,6 @@ const docTemplate = `{
                     }
                 ],
                 "summary": "Get all admins",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -90,12 +82,6 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.Admin"
                         }
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "201": {
@@ -142,12 +128,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -204,12 +184,6 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.Admin"
                         }
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -251,12 +225,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "204": {
@@ -295,14 +263,6 @@ const docTemplate = `{
                     }
                 ],
                 "summary": "Get all works",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -348,12 +308,6 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.Work"
                         }
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "201": {
@@ -400,12 +354,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -452,12 +400,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
                     },
                     {
                         "description": "Work",
@@ -509,12 +451,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "204": {
@@ -553,14 +489,6 @@ const docTemplate = `{
                     }
                 ],
                 "summary": "Get all uploaders",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -606,12 +534,6 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.Uploader"
                         }
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "201": {
@@ -658,12 +580,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -710,12 +626,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
                     },
                     {
                         "description": "Uploader",
@@ -767,12 +677,6 @@ const docTemplate = `{
                         "in": "path",
                         "required": true
                     },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "type": "string"
-                    }
                 ],
                 "responses": {
                     "204": {
@@ -796,9 +700,60 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/sendEmail": {
+            "post": {
+                "description": "Sends an Email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "email"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Sends an email to reset password",
+                "parameters": [
+                    {
+                        "description": "Email",
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EmailRequest"
+                        }
+                    },
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully Send",
+                        "schema": {
+                            "$ref": "#/definitions/models.EmailRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
     },
     "definitions": {
-        "models.Admin": {
+        "Admin": {
             "description": "Admin model",
             "type": "object",
             "properties": {
@@ -838,7 +793,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Work": {
+        "Work": {
             "description": "Work model",
             "type": "object",
             "properties": {
@@ -891,7 +846,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Uploader": {
+        "Uploader": {
             "description": "Uploader model",
             "type": "object",
             "properties": {
@@ -926,6 +881,16 @@ const docTemplate = `{
                 "work_id": {
                     "description": "WorkID is the foreign key to Work\nrequired: true",
                     "type": "integer"
+                }
+            }
+        },
+        "EmailRequest": {
+            "description": "Email model",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "description": "Email\nrequired: true",
+                    "type": "string"
                 }
             }
         }
