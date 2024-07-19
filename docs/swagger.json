@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8000",
+    "host": "projectmanagement-backend-tysm.onrender.com",
     "paths": {
         "/api/v1/admin": {
             "get": {
