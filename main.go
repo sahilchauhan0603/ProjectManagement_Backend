@@ -18,7 +18,7 @@ import (
 // @title Project Management APIs
 // @version 1.0
 // @description This is Project Management API documentation
-// @host localhost:8000
+// @host lprojectmanagement-backend-tysm.onrender.com
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
