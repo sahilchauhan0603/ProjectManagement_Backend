@@ -23,6 +23,7 @@ import (
 // @Router /api/v1/sendEmail [post]
 func SendEmail(w http.ResponseWriter, r *http.Request) {
 
+	
 	var emailReq models.EmailRequest
 	err := json.NewDecoder(r.Body).Decode(&emailReq)
 	if err != nil {
