@@ -9,19 +9,11 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	_ "github.com/sahilchauhan0603/backend/docs" // Swagger docs
 
 	database "github.com/sahilchauhan0603/backend/config"
 	routes "github.com/sahilchauhan0603/backend/routes"
 )
 
-// @title Project Management APIs
-// @version 1.0
-// @description This is Project Management API documentation
-// @host projectmanagement-backend-tysm.onrender.com
-// @securityDefinitions.apikey BearerAuth
-// @in header
-// @name Authorization
 func main() {
 
 	// Load environment variables
