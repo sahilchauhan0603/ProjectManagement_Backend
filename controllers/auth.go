@@ -11,14 +11,7 @@ import (
 	"strings"
 )
 
-// HandleMicrosoftLogin redirects to Microsoft OAuth2 login page
-// swagger:route GET /login authentication HandleMicrosoftLogin
-//
-// Redirect to Microsoft OAuth2 login page.
-//
-// Responses:
-//
-//	302: emptyResponse
+
 func HandleMicrosoftLogin(w http.ResponseWriter, r *http.Request) {
 	clientID := os.Getenv("CLIENT_ID")
 	redirectURL := os.Getenv("REDIRECT_URL")
@@ -38,15 +31,6 @@ func HandleMicrosoftLogin(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, authURL, http.StatusFound)
 }
 
-// HandleMicrosoftCallback handles the OAuth2 callback from Microsoft
-// swagger:route GET /callback authentication HandleMicrosoftCallback
-//
-// Handle the OAuth2 callback from Microsoft and generate JWT.
-//
-// Responses:
-//
-//	200: jwtTokenResponse
-//	500: errorResponse
 func HandleMicrosoftCallback(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 

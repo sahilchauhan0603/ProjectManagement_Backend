@@ -20,8 +20,6 @@ func InitializeRoutes(router *mux.Router) {
 	router.HandleFunc("/login", controllers.HandleMicrosoftLogin).Methods("GET")
 	router.HandleFunc("/callback", controllers.HandleMicrosoftCallback).Methods("GET")
 
-	
-	// Uploader routes
 	r := router.PathPrefix("/api/v1").Subrouter()
 	// r.Use(middleware.JWTVerify)
 
@@ -38,6 +36,7 @@ func InitializeRoutes(router *mux.Router) {
 	r.HandleFunc("/work/{workID}", controllers.GetWorkID).Methods("GET")
 	r.HandleFunc("/work/{workID}", controllers.UpdateWork).Methods("PUT")
 	r.HandleFunc("/work/{workID}", controllers.DeleteWork).Methods("DELETE")
+
 
 	// Admin routes
 	r.HandleFunc("/admin", controllers.CreateAdmin).Methods("POST")
